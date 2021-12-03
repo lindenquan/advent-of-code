@@ -1,0 +1,4 @@
+name: advent_of_code
+
+environment:
+  sdk: ">=2.14.4 <3.0.0"
