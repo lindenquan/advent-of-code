@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 
-const path = 'day_02.input';
+const path = 'day_02_emily.input';
 var horizontal = 0;
 var depth = 0;
 

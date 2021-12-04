@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 void main() async {
-  var path = 'day_01.input';
+  var path = 'input_1_2.txt';
   var first = -1;
   var second = -1;
   var newList = await new File(path)
