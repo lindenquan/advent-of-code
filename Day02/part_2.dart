@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'dart:convert';
 
-const path = 'day_02_emily.input';
+const path = 'input.txt';
 var horizontal = 0;
 var depth = 0;
+var aim = 0;
 
 enum Direction { forward, backward, up, down }
 
@@ -32,15 +33,16 @@ void exeCommand(Command command) {
   switch (command.direction) {
     case Direction.forward:
       horizontal += command.unit;
+      depth += aim * command.unit;
       break;
     case Direction.backward:
       horizontal -= command.unit;
       break;
     case Direction.up:
-      depth -= command.unit;
+      aim -= command.unit;
       break;
     case Direction.down:
-      depth += command.unit;
+      aim += command.unit;
       break;
   }
 }
@@ -53,5 +55,7 @@ void main() async {
       .map(command)
       .forEach(exeCommand);
 
+  print('horizontal:${horizontal}');
+  print('depth: ${depth}');
   print(horizontal * depth);
 }
