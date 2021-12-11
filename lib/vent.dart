@@ -67,33 +67,32 @@ class Board {
     return count;
   }
 
-  void draw() {
-    var maxX = this.board[0].length;
-    var maxY = this.board.length;
-
+  void draw([bool diagnal = false]) {
     this.vents.forEach((vent) {
       if (vent.start.y == vent.end.y && vent.start.x == vent.end.x) {
         this.board[vent.start.y][vent.start.x] += 1;
-      }
-
-      if (vent.start.y == vent.end.y) {
+      } else if (vent.start.y == vent.end.y) {
         var smallIndex = vent.start.x < vent.end.x ? vent.start.x : vent.end.x;
         var bigIndex = smallIndex == vent.start.x ? vent.end.x : vent.start.x;
-        for (int i = 0; i <= maxX; i++) {
-          if (i >= smallIndex && i <= bigIndex) {
-            this.board[vent.start.y][i] += 1;
-          }
+        for (int i = smallIndex; i <= bigIndex; i++) {
+          this.board[vent.start.y][i] += 1;
         }
-      }
-
-      if (vent.start.x == vent.end.x) {
+      } else if (vent.start.x == vent.end.x) {
         var smallIndex = vent.start.y < vent.end.y ? vent.start.y : vent.end.y;
         var bigIndex = smallIndex == vent.start.y ? vent.end.y : vent.start.y;
-        for (int i = 0; i <= maxY; i++) {
-          if (i >= smallIndex && i <= bigIndex) {
-            this.board[i][vent.start.x] += 1;
-          }
+        for (int i = smallIndex; i <= bigIndex; i++) {
+          this.board[i][vent.start.x] += 1;
         }
+      } else if (diagnal) {
+        Coordinate start = vent.start.y < vent.end.y ? vent.start : vent.end;
+        Coordinate end = start.y == vent.start.y ? vent.end : vent.start;
+
+        bool isForward = end.x > start.x;
+        if (end.y - start.y == (end.x - start.x).abs())
+          for (int i = start.y; i <= end.y; i++) {
+            var offset = isForward ? i - start.y : start.y - i;
+            this.board[i][start.x + offset] += 1;
+          }
       }
     });
   }
